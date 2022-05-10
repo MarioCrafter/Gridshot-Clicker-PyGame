@@ -8,7 +8,7 @@ class startPanel:
 
     def __init__(self, screen):
         self.running = True
-        self.background = self.BLUE
+        self.background = self.RED
         self.screen = screen
         self.screen.fill(self.background)
         pygame.display.update()
@@ -22,6 +22,11 @@ class startPanel:
                     self.background = self.RED
                 if event.type == pygame.MOUSEBUTTONUP:
                     self.background = self.CYAN
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_1:
+                        self.background = self.BLUE
+                    if event.key == pygame.K_2:
+                        self.background = self.CYAN
                 
                 if event.type == pygame.QUIT:
                     self.running = False
