@@ -7,25 +7,39 @@ class gameObject:
         self.x_coordinate = x_coor
         self.y_coordinate = y_coor
         self.color = color
-        self.coordinates = [self.x_coordinate,self.y_coordinate]
     
     def getXcoord(self): 
+        """
+        return int x-coordinate
+        """
         return self.x_coordinate
 
     def getYcoord(self):
+        """
+        return int y-coordinate
+        """
         return self.y_coordinate
 
     def getColor(self):
+        """
+        return tuple color
+        """
         return self.color
-    
-    def getCoordinates(self):
-        return self.coordinates
 
     def setXcoordinate(self,num):
+        """
+        set int x-coordinate
+        """
         self.x_coordinate = num
     
     def setYcoordinate(self,num):
+        """
+        set int y-coordinate
+        """
         self.y_coordinate = num
     
     def setColor(self,col):
+        """
+        set tuple color
+        """
         self.color = col

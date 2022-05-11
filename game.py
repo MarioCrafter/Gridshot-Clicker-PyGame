@@ -1,3 +1,6 @@
-from gameGUI import gameGUI
+import gameGUI.gameGUI
+def main():
+    game = gameGUI()
 
-screen = gameGUI()
+if __name__ == "__main__":
+    main() 

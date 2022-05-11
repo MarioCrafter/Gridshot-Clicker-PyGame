@@ -8,5 +8,15 @@ class textClass:
         self.color = color
 
     def drawText(self,screen,x_coord,y_coord):
+        """
+        Render and append text to screen
+        """
         renderedText = self.font.render(self.text,True,self.color)
         screen.blit(renderedText, (x_coord,y_coord))
+
+    def setColor(self, color):
+        """
+        Change Text Color 
+        """
+        self.color = color
+        self.drawText()

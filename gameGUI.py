@@ -1,9 +1,9 @@
 import pygame
 import pygame,os
 from pygame.locals import *
-from startPanel import startPanel
-from gamePanel import gamePanel
-from endPanel import endPanel
+from .startPanel import startPanel
+from .gamePanel import gamePanel
+from .endPanel import endPanel
 
 class gameGUI:
     def __init__(self) -> None:
@@ -17,6 +17,9 @@ class gameGUI:
         self.changePanel(self.eventMode)
 
     def changePanel(self, panelName):
+        """
+        Change panel to panelName {START,GAME,END}
+        """
         match panelName:
             case "START":
                 screen = startPanel(self.window)
@@ -37,7 +40,7 @@ class gameGUI:
                         self.endChecks(event)
 
                 
-    def startChecks(self,event):
+    #def startChecks(self,event):
 
     #def gameChecks(self,event):
 

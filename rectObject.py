@@ -1,12 +1,16 @@
 import pygame
 from pygame.locals import *
+from .gameObject import gameObject
 class rectObject(gameObject):
     def __init__(self,surface,x_coor,y_coor,color,width,heigth):
         super().__init__(surface,x_coor,y_coor,color)
         self.width = width
-        self.height = heigh
+        self.height = heigth
     
     def drawRectangle(self):
+        """
+        Render rectangle object
+        """
         pygame.draw.rect(self.surface,self.color,[
             self.x_coordinate,
             self.y_coordinate,
@@ -15,9 +19,15 @@ class rectObject(gameObject):
         ])
 
     def getWidth(self):
+        """
+        Returns int width of rectangle
+        """
         return self.width
     
     def getHeight(self):
+        """
+        Return int height of rectangle
+        """
         return self.height
 
 
