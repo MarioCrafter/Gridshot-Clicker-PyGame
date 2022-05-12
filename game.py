@@ -1,6 +1,3 @@
-import gameGUI.gameGUI
-def main():
-    game = gameGUI()
+import gameGUI
 
-if __name__ == "__main__":
-    main() 
+game = gameGUI.gameGUI()

@@ -1,9 +1,9 @@
 import pygame
 from pygame.locals import *
 
-class textClass:
-    def __init__(self, font,size,text,color):
-        self.font - pygame.font.SysFont(font,size)
+class textObject:
+    def __init__(self,font,size,text,color):
+        self.font = pygame.font.SysFont(font,size)
         self.text = text
         self.color = color
 

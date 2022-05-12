@@ -1,9 +1,9 @@
 import pygame
 import pygame,os
 from pygame.locals import *
-from .startPanel import startPanel
-from .gamePanel import gamePanel
-from .endPanel import endPanel
+import startPanel
+import gamePanel
+import endPanel
 
 class gameGUI:
     def __init__(self) -> None:
@@ -11,10 +11,12 @@ class gameGUI:
         self.running = True
         info = pygame.display.Info()
         s_width,s_height = info.current_w, info.current_h
-        w_width,w_height = s_width-10,s_height-50
-        self.window = pygame.display.set_mode((w_width,w_height))
+        self.w_width,self.w_height = s_width-10,s_height-50
+        self.window = pygame.display.set_mode((self.w_width,self.w_height))
+        pygame.display.set_caption("Gridshot Clicker")
         self.eventMode = "START"
         self.changePanel(self.eventMode)
+        self.screenLoop()
 
     def changePanel(self, panelName):
         """
@@ -22,22 +24,30 @@ class gameGUI:
         """
         match panelName:
             case "START":
-                screen = startPanel(self.window)
+                self.screen = startPanel.startPanel(self.window,self.w_width,self.w_height)
             case "GAME":
-                screen = gamePanel(self.window)
+                self.screen = gamePanel.gamePanel(self.window)
             case "END":
-                screen = endPanel(self.window)
+                self.screen = endPanel.endPanel(self.window)
 
     def screenLoop(self):
         while self.running:
             for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.running = False
+
                 match self.eventMode:
                     case "START":
+                        self.screen.render()
+                '''
                         self.startChecks(event)
                     case "GAME":
                         self.gameChecks(event)
                     case "END":
                         self.endChecks(event)
+                '''
+                pygame.display.update()
+
 
                 
     #def startChecks(self,event):
