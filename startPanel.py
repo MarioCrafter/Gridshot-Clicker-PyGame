@@ -32,7 +32,7 @@ class startPanel():
     def render(self):
         self.screen.fill(self.background)
         self.startButton.drawButton()     
-        self.startTitle.drawText(self.screen,self.wWidth//4,self.startButtonYcord-self.startTitleFontSize+10)
+        self.startTitle.drawText(self.screen,self.wWidth//4,self.startButton.y_coor-self.startTitleFontSize+10)
 
 
 

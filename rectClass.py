@@ -4,7 +4,6 @@ from gameObjectClass import gameObject
 class rectObject(gameObject):
     def __init__(self,surface,x_coor,y_coor,color,width,heigth):
         super().__init__(surface,x_coor,y_coor,color)
-        self.surface = surface
         self.width = width
         self.heigth = heigth
     
@@ -12,7 +11,7 @@ class rectObject(gameObject):
         """
         Render rectangle object
         """
-        pygame.draw.rect(self.surface,self.color,[
+        pygame.draw.rect(self.displayVar,self.color,[
             self.x_coordinate,
             self.y_coordinate,
             self.width,

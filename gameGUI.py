@@ -1,6 +1,7 @@
 import pygame
 import pygame,os
 from pygame.locals import *
+from Colors import Colors
 import startPanel
 import gamePanel
 import endPanel
@@ -39,8 +40,8 @@ class gameGUI:
                 match self.eventMode:
                     case "START":
                         self.screen.render()
-                '''
                         self.startChecks(event)
+                '''
                     case "GAME":
                         self.gameChecks(event)
                     case "END":
@@ -50,7 +51,9 @@ class gameGUI:
 
 
                 
-    #def startChecks(self,event):
+    def startChecks(self,event):
+        if event.type == MOUSEBUTTONDOWN:
+            self.screen.background = Colors.RED
 
     #def gameChecks(self,event):
 
