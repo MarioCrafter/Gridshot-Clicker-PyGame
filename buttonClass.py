@@ -1,6 +1,5 @@
 import rectClass
 import textClass
-
 class buttonObject: 
     def __init__(self,surface,x_coor,y_coor,rectColor,textColor,width,heigth,font,size,text):
         self.buttonBlock = rectClass.rectObject(surface,x_coor,y_coor,rectColor,width,heigth)
