@@ -84,7 +84,7 @@ class gamePanel(panelObject):
         self.sMBaseYcord = wHeigth - 60  
         self.sMTopXcord = self.sMBaseXcord
         self.sMMaxY = (wWidth*(10/24))
-        self.sMTopYcord = self.sMBaseYcord - self.sMMaxY + (self.sMMaxY//6 * self.gameIns.speed)
+        self.sMTopYcord = self.sMBaseYcord - 10 - (self.sMMaxY//6 * self.gameIns.speed)
         self.sMWidth = int(wWidth*0.05)
         self.speedMeter = lineClass.lineObject(
             screen,
@@ -97,7 +97,7 @@ class gamePanel(panelObject):
         )
 
         #Orb Constants
-        self.radius = int((self.wWidth*self.wHeigth)*0.000024)
+        self.radius = int((self.wWidth*self.wHeigth)*0.000029)
         self.orbColor = Colors.RED
 
     def makeGameElements(self):
@@ -118,7 +118,6 @@ class gamePanel(panelObject):
             if orb.coords == pos: 
                 self.orbList.remove(orb)
         self.generateOrb()    
-
 
     def render(self,gameIns):
         self.screen.fill(self.background)

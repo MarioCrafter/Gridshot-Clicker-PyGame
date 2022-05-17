@@ -42,6 +42,7 @@ class gameGUI:
 
     def screenLoop(self):
         while self.running:
+            self.clock.tick(60)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
@@ -51,6 +52,8 @@ class gameGUI:
                         self.screen.render()
                         self.startChecks(event)
                     case "GAME":
+                        self.gameIns.updateSpeed()
+                        print(self.gameIns.speed)
                         self.screen.render(self.gameIns)
                         self.gameChecks(event)
                 '''
@@ -58,7 +61,6 @@ class gameGUI:
                         self.endChecks(event)
                 '''
                 pygame.display.update()
-                self.clock.tick(60)
 
     def mouseOver(self,xInit,xFinal,yInit,yFinal):
         mousePos = pygame.mouse.get_pos()
@@ -89,7 +91,8 @@ class gameGUI:
     def gameChecks(self,event):
         if event.type == pygame.USEREVENT:
             if self.gameIns.time > 0: 
-                self.gameIns.time -= 1
+                self.gameIns.updateTime()
+
 
         if event.type == MOUSEBUTTONDOWN and self.gameIns.time > 0:
             for pos in self.gameIns.orbPositions:
@@ -98,6 +101,10 @@ class gameGUI:
                 y = pos[1]
                 if self.mouseOver(x-r,x+r,y-r,y+r):
                     self.gameIns.removeOrb(pos)
+            if self.mouseOver(0,x-r-1,0,y-r-1) or self.mouseOver(x+r+1,self.w_width,y+r+1,self.w_height):
+                self.gameIns.updateAccuracy()
+                print(self.gameIns.misses)
+
             
 
 
