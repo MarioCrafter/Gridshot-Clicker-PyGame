@@ -1,19 +1,24 @@
 from Colors import Colors
+from ballClass import ballObject
 from panelClass import panelObject
 import gameLogic
 import buttonClass
 import rectClass
 import lineClass
+import ballClass
 
 class gamePanel(panelObject):
-    def __init__(self,screen,wWidth,wHeight,gameIns) -> None:
-        super().__init__(screen,wWidth,wHeight)
+    def __init__(self,screen,wWidth,wHeigth,gameIns) -> None:
+        super().__init__(screen,wWidth,wHeigth)
         self.gameIns = gameIns
-        
+        self.screen = screen
+        self.wWidth = wWidth
+        self.wHeigth = wHeigth
+
         #Time Display 
         self.timeBWidth = wWidth*0.16
-        self.timeBHeigth = wHeight*0.12
-        self.timeBText = str(self.gameIns.time)
+        self.timeBHeigth = wHeigth*0.12
+        self.timeBText = str(self.gameIns.time) + " s"
         self.timeBXcord = wWidth//2 - self.timeBWidth//2
         self.timeBYcord = 15
         self.timeBFontSize = int((self.timeBWidth*self.timeBHeigth) * 0.003)
@@ -30,10 +35,11 @@ class gamePanel(panelObject):
             self.timeBFontSize,
             self.timeBText
         )
+
         
         #Point Display 
         self.pointBWidth = wWidth * 0.14
-        self.pointBHeigth = wHeight * 0.09
+        self.pointBHeigth = wHeigth * 0.09
         self.pointBText = str(self.gameIns.points) + " pts"
         self.pointBXcord = self.timeBXcord - self.pointBWidth + 1
         self.pointBYcord = self.timeBYcord + (self.timeBWidth//2 - self.pointBWidth//2)
@@ -75,7 +81,7 @@ class gamePanel(panelObject):
         
         #Speed Meter 
         self.sMBaseXcord = 60 
-        self.sMBaseYcord = wHeight - 60  
+        self.sMBaseYcord = wHeigth - 60  
         self.sMTopXcord = self.sMBaseXcord
         self.sMMaxY = (wWidth*(10/24))
         self.sMTopYcord = self.sMBaseYcord - self.sMMaxY + (self.sMMaxY//6 * self.gameIns.speed)
@@ -90,9 +96,40 @@ class gamePanel(panelObject):
             self.sMWidth
         )
 
-    def render(self):
+        #Orb Constants
+        self.radius = int((self.wWidth*self.wHeigth)*0.000024)
+        self.orbColor = Colors.RED
+
+    def makeGameElements(self):
+        #Orb Objects
+        self.orb1 = self.generateOrb()
+        self.orb2 = self.generateOrb()
+        self.orb3 = self.generateOrb()
+        self.ballList = [self.orb1,self.orb2,self.orb3]
+
+    def generateOrb(self):
+        x,y = self.gameIns.generateCoordinate()
+        return ballClass.ballObject(
+            self.screen,
+            x,
+            y,
+            self.orbColor,
+            self.radius
+        )
+
+
+    def render(self,gameIns):
         self.screen.fill(self.background)
+        self.timeButton.buttonText.text = str(gameIns.time) + " s"
         self.timeButton.drawButton()
+        self.pointButton.buttonText.text = self.pointBText = str(self.gameIns.points) + " pts"
         self.pointButton.drawButton()
+        self.accButton.buttonText.text = str(gameIns.accuracy) + "%"
         self.accButton.drawButton()
+        self.speedMeter.y2 = self.sMBaseYcord - self.sMMaxY + (self.sMMaxY//6 * gameIns.speed)
         self.speedMeter.drawLine()
+
+        self.orb1.drawCircle()
+        self.orb2.drawCircle()
+        self.orb3.drawCircle()
+

@@ -7,12 +7,13 @@ class ballObject(gameObject):
     def __init__(self, surface, x_coor, y_coor, color, radius):
         super().__init__(surface, x_coor, y_coor, color)
         self.radius = radius
+        self.coords = [x_coor,y_coor]
 
     def drawCircle(self):
         '''
         Render circle object
         '''
-        pygame.draw.circle(self.displayVar,self.color,self.y_coordinate,self.x_coordinate,self.radius)
+        pygame.draw.circle(self.displayVar,self.color,self.coords,self.radius)
 
     def setRadius(self,radius):
         '''

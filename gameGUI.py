@@ -16,6 +16,7 @@ class gameGUI:
         s_width,s_height = info.current_w, info.current_h
         self.w_width,self.w_height = s_width-10,s_height-50
         self.window = pygame.display.set_mode((self.w_width,self.w_height))
+        self.clock = pygame.time.Clock()
         pygame.display.set_caption("Gridshot Clicker")
         self.eventMode = "START"
         self.changePanel(self.eventMode)
@@ -32,8 +33,10 @@ class gameGUI:
             case "GAME":
                 self.screen = NULL
                 self.eventMode = "GAME"
-                self.gameIns = gameLogic.gameLogic()
+                self.gameIns = gameLogic.gameLogic(self.w_width,self.w_height)
                 self.screen = gamePanel.gamePanel(self.window,self.w_width,self.w_height,self.gameIns)
+                self.gameIns.getPanel(self.screen)
+                pygame.time.set_timer(pygame.USEREVENT,1000)
             case "END":
                 self.screen = endPanel.endPanel(self.window)
 
@@ -48,21 +51,21 @@ class gameGUI:
                         self.screen.render()
                         self.startChecks(event)
                     case "GAME":
-                        self.screen.render()
-                        #self.gameChecks(event)
+                        self.screen.render(self.gameIns)
+                        self.gameIns.getPanel(self.screen)
+                        self.gameChecks(event)
                 '''
                     case "END":
                         self.endChecks(event)
                 '''
                 pygame.display.update()
-
+                self.clock.tick(60)
 
     def mouseOver(self,xInit,xFinal,yInit,yFinal):
         mousePos = pygame.mouse.get_pos()
         if xInit <= mousePos[0] <= xFinal and yInit <= mousePos[1] <= yFinal:
             return True
         return False
-
 
     def startChecks(self,event):
         if self.mouseOver(
@@ -85,7 +88,15 @@ class gameGUI:
                     
                 self.changePanel("GAME")
 
+    def gameChecks(self,event):
+        if event.type == pygame.USEREVENT:
+            if self.gameIns.time > 0: 
+                self.gameIns.time -= 1
+                if event.type == MOUSEBUTTONDOWN:
+                    pass
+            else: 
+                pass
+            
 
-    #def gameChecks(self,event):
 
     #def endChecks(self,event):
