@@ -52,7 +52,6 @@ class gameGUI:
                         self.startChecks(event)
                     case "GAME":
                         self.screen.render(self.gameIns)
-                        self.gameIns.getPanel(self.screen)
                         self.gameChecks(event)
                 '''
                     case "END":
@@ -75,7 +74,6 @@ class gameGUI:
                 self.screen.startBYcord + self.screen.startBHeigth):
 
             self.screen.startButton.buttonBlock.setColor(Colors.RED)
-
         else:
             self.screen.startButton.buttonBlock.setColor(Colors.ORANGE)   
 
@@ -92,10 +90,14 @@ class gameGUI:
         if event.type == pygame.USEREVENT:
             if self.gameIns.time > 0: 
                 self.gameIns.time -= 1
-                if event.type == MOUSEBUTTONDOWN:
-                    pass
-            else: 
-                pass
+
+        if event.type == MOUSEBUTTONDOWN and self.gameIns.time > 0:
+            for pos in self.gameIns.orbPositions:
+                r = self.screen.radius
+                x = pos[0]
+                y = pos[1]
+                if self.mouseOver(x-r,x+r,y-r,y+r):
+                    self.gameIns.removeOrb(pos)
             
 
 

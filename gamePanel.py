@@ -102,20 +102,22 @@ class gamePanel(panelObject):
 
     def makeGameElements(self):
         #Orb Objects
-        self.orb1 = self.generateOrb()
-        self.orb2 = self.generateOrb()
-        self.orb3 = self.generateOrb()
-        self.ballList = [self.orb1,self.orb2,self.orb3]
+        self.orbList = []
+        self.generateOrb()
+        self.generateOrb()
+        self.generateOrb()
 
     def generateOrb(self):
         x,y = self.gameIns.generateCoordinate()
-        return ballClass.ballObject(
-            self.screen,
-            x,
-            y,
-            self.orbColor,
-            self.radius
-        )
+        orb = ballClass.ballObject(self.screen,x,y,self.orbColor,self.radius)
+        self.orbList.append(orb)
+        return orb
+
+    def deleteOrb(self,pos):
+        for orb in self.orbList:
+            if orb.coords == pos: 
+                self.orbList.remove(orb)
+        self.generateOrb()    
 
 
     def render(self,gameIns):
@@ -129,7 +131,6 @@ class gamePanel(panelObject):
         self.speedMeter.y2 = self.sMBaseYcord - self.sMMaxY + (self.sMMaxY//6 * gameIns.speed)
         self.speedMeter.drawLine()
 
-        self.orb1.drawCircle()
-        self.orb2.drawCircle()
-        self.orb3.drawCircle()
+        for orb in self.orbList:
+            orb.drawCircle()
 

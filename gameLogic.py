@@ -11,6 +11,7 @@ class gameLogic:
         self.accuracy = 100.0
         #1 <= speed <= 6 
         self.speed = 1
+        self.gameEnvironmentCheck = 0
 
     def getPanel(self, gamePanel):
         self.gamePanel = gamePanel
@@ -18,7 +19,7 @@ class gameLogic:
     
     def gameEnvironment(self):
         self.topBound = int(self.gamePanel.timeBYcord + 10 + self.gamePanel.timeBWidth)
-        self.bottonBound = int(self.wHeigth - 20)
+        self.bottonBound = int(self.wHeigth - 30)
         self.yDistance = self.bottonBound - self.topBound
         self.leftBound = int(self.gamePanel.sMBaseXcord + self.gamePanel.sMWidth*2)
         self.rightBound = int(self.wWidth - self.leftBound)
@@ -26,8 +27,6 @@ class gameLogic:
         self.gameGrid = self.coordinateGrid()
         self.orbPositions = []
         self.gamePanel.makeGameElements()
-
-
 
     def coordinateGrid(self):
         #Divisions = Len of side / (2*radius + Circle Gap)
@@ -52,6 +51,12 @@ class gameLogic:
         while self.checkCoordinate(newCoord):
             randIndex = randint(0,len(self.gameGrid)-1)
             newCoord = self.gameGrid[randIndex] 
-        self.orbPositions.append(newCoord)   
+        self.orbPositions.append(newCoord) 
         return newCoord  
+
+    def removeOrb(self,pos):
+        for coord in self.orbPositions:
+            if coord == pos:
+                self.orbPositions.remove(coord)
+        self.gamePanel.deleteOrb(pos)
 
