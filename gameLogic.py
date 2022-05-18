@@ -61,14 +61,16 @@ class gameLogic:
             if coord == pos:
                 self.orbPositions.remove(coord)
         self.gamePanel.deleteOrb(pos)
-        self.points += 1 
+        self.updatePoints()
 
+    def updatePoints(self):
+        self.points += 1
+        self.updateAccuracy()
 
     def updateTime(self):
         self.time -= 1
 
     def updateAccuracy(self):
-        self.misses += 1
         tempAcc = ((self.points+1)-(self.misses))/(self.points+1) 
         if tempAcc > 1: 
             self.accuracy = 100.00

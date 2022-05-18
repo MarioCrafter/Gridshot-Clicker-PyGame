@@ -53,7 +53,6 @@ class gameGUI:
                         self.startChecks(event)
                     case "GAME":
                         self.gameIns.updateSpeed()
-                        print(self.gameIns.speed)
                         self.screen.render(self.gameIns)
                         self.gameChecks(event)
                 '''
@@ -95,15 +94,29 @@ class gameGUI:
 
 
         if event.type == MOUSEBUTTONDOWN and self.gameIns.time > 0:
-            for pos in self.gameIns.orbPositions:
-                r = self.screen.radius
-                x = pos[0]
-                y = pos[1]
-                if self.mouseOver(x-r,x+r,y-r,y+r):
-                    self.gameIns.removeOrb(pos)
-            if self.mouseOver(0,x-r-1,0,y-r-1) or self.mouseOver(x+r+1,self.w_width,y+r+1,self.w_height):
-                self.gameIns.updateAccuracy()
-                print(self.gameIns.misses)
+            r = self.screen.radius
+            x1 = self.gameIns.orbPositions[0][0]
+            y1 = self.gameIns.orbPositions[0][1]
+            x2 = self.gameIns.orbPositions[1][0]
+            y2 = self.gameIns.orbPositions[1][1]
+            x3 = self.gameIns.orbPositions[2][0]
+            y3 = self.gameIns.orbPositions[2][1]
+            
+            if self.mouseOver(x1-r,x1+r,y1-r,y1+r):
+                    self.gameIns.removeOrb([x1,y1])
+
+            if self.mouseOver(x2-r,x2+r,y2-r,y2+r):
+                    self.gameIns.removeOrb([x2,y2])
+
+            if self.mouseOver(x3-r,x3+r,y3-r,y3+r):
+                    self.gameIns.removeOrb([x3,y3])
+                
+            if not self.mouseOver(x1-r,x1+r,y1-r,y1+r):
+                if not self.mouseOver(x2-r,x2+r,y2-r,y2+r):
+                    if not self.mouseOver(x3-r,x3+r,y3-r,y3+r):
+                        self.gameIns.misses += 1
+                        self.gameIns.updateAccuracy()
+
 
             
 

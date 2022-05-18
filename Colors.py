@@ -17,3 +17,4 @@ class Colors:
     NAVY = (0,0,128)
     ORANGE = (255,165,0)
     GOLD = (255,215,0)
+
