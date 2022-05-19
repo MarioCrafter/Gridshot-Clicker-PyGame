@@ -40,6 +40,15 @@ class endPanel(panelObject):
             self.retryTitleText,
             Colors.WHITE)
 
+        #Data Text
+        self.dataText = "Score: "+str(self.gameIns.points)+" Accuracy: "+str(self.gameIns.accuracy) + "%"
+        self.dataFontSize = int(self.screenArea*0.00003)
+        self.dataDisplay = textClass.textObject(
+            self.font,
+            self.dataFontSize,
+            self.dataText,
+            Colors.WHITE)
+
     def render(self):
         self.screen.fill(self.background)
         self.retryButton.drawButton()
@@ -47,4 +56,8 @@ class endPanel(panelObject):
             self.screen,
             self.wWidth // 2 - self.retryTitle.getSize()[0] // 2,
             self.retryButton.y_coor - self.retryTitleFontSize+10)
-        
+        self.dataDisplay.drawText(
+            self.screen,
+            self.wWidth//2-self.dataDisplay.getSize()[0]//2,
+            self.retryButton.y_coor + self.dataFontSize + 30
+        )
