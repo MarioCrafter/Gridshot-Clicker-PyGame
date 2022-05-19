@@ -97,7 +97,7 @@ class gamePanel(panelObject):
         )
 
         #Orb Constants
-        self.radius = int((self.wWidth*self.wHeigth)*0.000029)
+        self.radius = int((self.wWidth*self.wHeigth)*0.00003)
         self.orbColor = Colors.RED
 
     def makeGameElements(self):
