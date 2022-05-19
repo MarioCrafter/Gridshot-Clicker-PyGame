@@ -26,6 +26,8 @@ class gameGUI:
         """
         Change panel to panelName {START,GAME,END}
         """
+        #info = pygame.display.Info()
+        #self.w_width,self.w_height = info.current_w, info.current_h
         match panelName:
             case "START":
                 self.screen = NULL
@@ -38,7 +40,11 @@ class gameGUI:
                 self.gameIns.getPanel(self.screen)
                 pygame.time.set_timer(pygame.USEREVENT,1000)
             case "END":
-                self.screen = endPanel.endPanel(self.window)
+                self.screen = NULL
+                self.eventMode = "END"
+                self.screen = endPanel.endPanel(self.window,self.w_width,self.w_height,self.gameIns)
+                pygame.time.set_timer(pygame.USEREVENT,0)
+
 
     def screenLoop(self):
         while self.running:
@@ -55,10 +61,10 @@ class gameGUI:
                         self.gameIns.updateSpeed()
                         self.screen.render(self.gameIns)
                         self.gameChecks(event)
-                '''
                     case "END":
+                        self.screen.render()
                         self.endChecks(event)
-                '''
+
                 pygame.display.update()
 
     def mouseOver(self,xInit,xFinal,yInit,yFinal):
@@ -89,8 +95,10 @@ class gameGUI:
 
     def gameChecks(self,event):
         if event.type == pygame.USEREVENT:
-            if self.gameIns.time > 0: 
+            if self.gameIns.time != -1: 
                 self.gameIns.updateTime()
+            if self.gameIns.time == -1: 
+                self.changePanel("END")
 
 
         if event.type == MOUSEBUTTONDOWN and self.gameIns.time > 0:
@@ -115,10 +123,27 @@ class gameGUI:
                 if not self.mouseOver(x2-r,x2+r,y2-r,y2+r):
                     if not self.mouseOver(x3-r,x3+r,y3-r,y3+r):
                         self.gameIns.misses += 1
-                        self.gameIns.updateAccuracy()
+                        self.gameIns.updateAccuracy()        
 
+    
+    def endChecks(self,event):
+        if self.mouseOver(
+                self.screen.retryBXcord,
+                self.screen.retryBXcord + self.screen.retryBWidth,
+                self.screen.retryBYcord,
+                self.screen.retryBYcord + self.screen.retryBHeigth):
 
-            
+            self.screen.retryButton.buttonBlock.setColor(Colors.RED)
+        else:
+            self.screen.retryButton.buttonBlock.setColor(Colors.ORANGE)   
 
+        if event.type == MOUSEBUTTONDOWN:
+            if self.mouseOver(
+                    self.screen.retryBXcord,
+                    self.screen.retryBXcord + self.screen.retryBWidth,
+                    self.screen.retryBYcord,
+                    self.screen.retryBYcord + self.screen.retryBHeigth):
+                    
+                self.changePanel("GAME")     
+        
 
-    #def endChecks(self,event):

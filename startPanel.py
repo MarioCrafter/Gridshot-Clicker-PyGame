@@ -38,8 +38,7 @@ class startPanel(panelObject):
             self.startTitleFontSize,
             self.startTitleText,
             Colors.WHITE)
-
-
+            
     def render(self):
         self.screen.fill(self.background)
         self.startButton.drawButton()     

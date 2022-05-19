@@ -7,13 +7,11 @@ class gameLogic:
         self.wHeigth = wHeight
         self.points = 0
         self.misses = 0 
-        self.time = 60
+        self.time = 3
         # 0% <= accuracy <= 100%
         self.accuracy = 100.0
         #1 <= speed <= 6 
         self.speed = 1
-        self.gameEnvironmentCheck = 0
-
 
     def getPanel(self, gamePanel):
         self.gamePanel = gamePanel
@@ -71,7 +69,10 @@ class gameLogic:
         self.time -= 1
 
     def updateAccuracy(self):
-        tempAcc = ((self.points+1)-(self.misses))/(self.points+1) 
+        difference = (self.points+1)-(self.misses)
+        if difference < 0: 
+            difference = 0
+        tempAcc = difference/(self.points+1) 
         if tempAcc > 1: 
             self.accuracy = 100.00
         else:
@@ -79,4 +80,6 @@ class gameLogic:
     
     def updateSpeed(self):
         self.speed = round(self.points/(61 - self.time))
+
+
  

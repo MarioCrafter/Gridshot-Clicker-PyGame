@@ -20,3 +20,6 @@ class textObject:
         """
         self.color = color
         self.drawText()
+
+    def getSize(self):
+        return self.font.size(self.text)
