@@ -7,7 +7,7 @@ class gameLogic:
         self.wHeigth = wHeight
         self.points = 0
         self.misses = 0 
-        self.time = 3
+        self.time = 60
         # 0% <= accuracy <= 100%
         self.accuracy = 100.0
         #1 <= speed <= 6 
